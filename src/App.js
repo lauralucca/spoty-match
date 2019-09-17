@@ -1,26 +1,34 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import React, { Component } from 'react';
+import axios from 'axios';
+
+import Header from './components/header/Header';
+import SelectionType from './components/selection-type/SelectionType';
+import UserPlaylist from './components/user-playlist/UserPlaylist';
+import Results from './components/results/Results';
+import ResultPlaylist from './components/result-playlist/ResultPlaylist';
+
+class App extends Component {
+    componentDidMount() {
+        axios.get('https://pokeapi.co/api/v2/pokemon/')
+            .then(res => {
+                this.setState({musics: res.results});
+            })
+    }
+
+    render() {
+        return (
+            <div className="App">
+                <Header />
+                <SelectionType />
+                <UserPlaylist />
+                <button type="text">Comparar</button>
+                <Results />
+                <ResultPlaylist />
+            </div>
+        );
+    }
 }
 
-export default App;
+
+export default App
